@@ -6,9 +6,9 @@ Security fixes are applied to the latest released version of the plugin. The cur
 
 ## Reporting a vulnerability
 
-Report a suspected vulnerability by opening a [private security advisory](https://github.com/exadel-inc/agentic-readiness-assessment/security/advisories/new) on this repository. If you cannot use that channel, open a normal [issue](https://github.com/exadel-inc/agentic-readiness-assessment/issues) that describes the problem without disclosing exploit detail, and a maintainer will move the conversation to a private channel.
+For this independently maintained fork, use its [issue tracker](https://github.com/joozio/agentic-readiness-assessment/issues) for non-sensitive reports. For a sensitive problem, request a confidential reporting channel without posting exploit details, credentials or repository contents. Upstream vulnerabilities should be reported through upstream's own security policy.
 
-We aim to acknowledge a report within five working days and to agree a disclosure timeline with the reporter before any fix is published.
+This fork makes no response-time guarantee. Do not publish confidential audit evidence while waiting for a response.
 
 ## What this plugin does on your machine
 
@@ -16,9 +16,9 @@ The plugin ships a single Agent Skill, and everything it does happens on your ma
 
 - It reads the repository in the current working directory.
 - It runs commands that already belong to that repository, such as its install, build, lint and test commands, and it records every command it ran.
-- It refuses commands that push, publish, deploy, run production migrations, use real credentials or customer data, call a paid service, or need root.
-- It writes exactly one file, `reports/agentic-readiness.md`.
-- It makes one small reversible edit to prove the repository can take a change, and reverts that edit before writing the report.
-- It sends no repository contents anywhere. Your agent client's own model requests are governed by that client's privacy policy.
+- The audit does not authorize pushes, publication, deployment, paid calls, production-data testing or privilege escalation. Host permissions remain authoritative.
+- It writes a report, normally `reports/agentic-readiness.md`, preserving an existing report. With no file-writing capability, it returns Markdown in the conversation.
+- When safe and permitted, it makes a small reversible probe in a disposable copy and restores it. Read-only assessments skip mutation.
+- The skill contains no telemetry or upload client. The model/harness has its own data-handling policy; authorized setup commands may download dependencies.
 
 The plugin carries no secrets and requires none. Reported findings name paths, never values.

@@ -2,14 +2,14 @@
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "agentic-readiness-assessment",
   "displayName": "Agentic Readiness Assessment",
-  "version": "4.5.0",
-  "description": "Evaluates a software repository for readiness to be developed and maintained by AI coding agents, and reports an evidence-based readiness scorecard.",
+  "version": "5.0.0",
+  "description": "Portable repository-readiness assessment with a human-first TL:TR report, verified evidence and prioritized fixes.",
   "author": {
-    "name": "Exadel",
-    "url": "https://exadel.com"
+    "name": "joozio",
+    "url": "https://github.com/joozio"
   },
-  "homepage": "https://github.com/exadel-inc/agentic-readiness-assessment",
-  "repository": "https://github.com/exadel-inc/agentic-readiness-assessment",
+  "homepage": "https://github.com/joozio/agentic-readiness-assessment",
+  "repository": "https://github.com/joozio/agentic-readiness-assessment",
   "license": "Apache-2.0",
   "keywords": [
     "agentic-readiness",

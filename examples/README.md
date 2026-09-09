@@ -1,11 +1,42 @@
 # Example reports
 
-Real reports produced by the skill, kept here so you can see the output before you run it.
+## Current format: version 5
 
-| Repository | Archetype | Score | Status | Confidence | Report |
-|---|---|---:|---|---|---|
-| `fs-demo-project` | Next.js 14 App Router application (TypeScript, Prisma, PostgreSQL) | 71 / 100 | Partially ready | Medium | [agentic-readiness.md](fs-demo-project/agentic-readiness.md) |
+These examples assess the synthetic [parcel-quote fixture](../tests/fixtures/tiny-cli).
+They came from independent Claude Code / Claude Opus 5 assessments on 2026-09-09,
+then received the editorial corrections listed below. They are reviewed examples,
+not untouched model output or evidence of compatibility with every harness.
 
-Each report is the file the skill writes to `reports/agentic-readiness.md` in the audited repository, at the version recorded in its own run block.
+| Example | Mode | Verdict | Published words |
+|---|---|---|---:|
+| [Executed assessment](v5/executed.md) | Local checks and reversible probe | Ready for bounded changes | 812 |
+| [Read-only assessment](v5/read-only.md) | File inspection only | Inconclusive | 734 |
 
-Six identifiers internal to the audited project were replaced before publishing: the CI host name, the group segment of its project path, a local database password, the name of the machine that ran the audit, the name of the agent product that ran it, and the tool-specific naming of its ticket prefix and agent-lessons directory. Scores, findings, fix records, commands and evidence are exactly as generated.
+Both retain two inspected improvements: CLI regression coverage and the invalid-input
+experience. Execution demonstrated that a pricing defect is caught and restoration
+returns the suite to green. Read-only evidence cannot establish that behavior.
+
+Publication edits:
+
+- Replaced the temporary assessed-tree path with `/workspace/parcel-quote` in both.
+- Executed: restored omitted `python3` prefixes, recorded the exact probe command and
+  bytecode setting from the transcript, and removed an uncaptured numeric probe exit
+  status. The observed failing test and restored green result are unchanged.
+- Read-only: made delegation conditional on running checks, removed a claim of proven
+  regression protection, marked the unexecuted runnable CLI Unverified, and clarified
+  that tests alone do not prove the CLI or probe. The verdict and findings are unchanged.
+
+The raw outputs were 789 and 733 words. See [evaluation notes](../docs/EVALUATION.md)
+for the upstream comparison, observed failures and limits. No private project report
+is published here.
+
+## Historical upstream format: version 4
+
+The [fs-demo-project report](fs-demo-project/agentic-readiness.md) is the original
+upstream Next.js example: 71/100, Partially ready, Medium confidence. It uses the old
+scoring contract and must not be validated with the v5 validator or compared
+numerically with a v5 verdict.
+
+Upstream anonymized the CI host, project group, local database password, machine,
+agent product and tool-specific identifiers. Its scores, findings and evidence
+remain unchanged in this fork.

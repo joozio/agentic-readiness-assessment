@@ -1,28 +1,28 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
-  "name": "exadel-agent-plugins",
-  "description": "AI agent development tools from Exadel.",
+  "name": "joozio-agent-skills",
+  "description": "Portable agent skills maintained by joozio.",
   "owner": {
-    "name": "Exadel",
-    "url": "https://exadel.com"
+    "name": "joozio",
+    "url": "https://github.com/joozio"
   },
   "plugins": [
     {
       "name": "agentic-readiness-assessment",
       "source": "./",
-      "description": "Evaluates a repository's readiness for AI coding agents and produces an evidence-based scorecard.",
+      "description": "Portable repository-readiness assessment with a human-first TL:TR report, verified evidence and prioritized fixes.",
       "category": "development",
       "tags": [
         "agentic-readiness",
         "codebase-analysis",
         "assessment"
       ],
-      "homepage": "https://github.com/exadel-inc/agentic-readiness-assessment",
-      "repository": "https://github.com/exadel-inc/agentic-readiness-assessment",
+      "homepage": "https://github.com/joozio/agentic-readiness-assessment",
+      "repository": "https://github.com/joozio/agentic-readiness-assessment",
       "license": "Apache-2.0",
       "author": {
-        "name": "Exadel",
-        "url": "https://exadel.com"
+        "name": "joozio",
+        "url": "https://github.com/joozio"
       }
     }
   ]

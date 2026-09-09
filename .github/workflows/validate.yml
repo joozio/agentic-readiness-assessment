@@ -2,10 +2,32 @@ name: Validate plugin
 
 on:
   push:
-    branches: [main]
+    branches: [main, human-first-portable-skill]
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
+  tests:
+    name: Portable skill and report contracts
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ['3.9', '3.14']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: python -m unittest discover -s skills/agentic-readiness-assessment/tests -v
+      - run: python -m unittest discover -s tests -v
+      - name: Validate current examples
+        run: |
+          for report in examples/v5/*.md; do
+            python skills/agentic-readiness-assessment/scripts/validate_report.py "$report"
+          done
+
   manifests:
     name: Manifests parse and agree
     runs-on: ubuntu-latest

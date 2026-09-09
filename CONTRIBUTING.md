@@ -1,57 +1,53 @@
-# Contributing to Agentic Readiness Assessment
+# Contributing
 
-Contributions are welcome, whether that is a bug report, a proposed change to the assessment prompt, a new example report, or a fix to the packaging.
-
-## What lives here
-
-This repository is one plugin root shared by Cursor, Codex, Claude Code and every client that reads the [Agent Skills](https://agentskills.io/specification) format. There is no application to build or deploy. The substance is:
-
-- `skills/agentic-readiness-assessment/SKILL.md`, the assessment prompt itself, with its `references/`, `scripts/` and `tests/`
-- `plugin.json` and the platform manifests under `.claude-plugin/`, `.codex-plugin/` and `gemini-extension.json`
-- `examples/`, real reports produced by the skill
-
-A change to `SKILL.md` changes what every user's report looks like. Read [Versioning](README.md#versioning) before you open one, because the version bump depends on whether your change breaks comparability between reports.
-
-## How to propose a change
-
-1. Fork the repository and branch from `main`.
-2. Make the change.
-3. Run the checks below.
-4. Open a pull request describing what changed in the report a user receives, not only what changed in the file.
+This fork maintains one portable skill and a human report contract. Improve the
+reader's decision, not the number of instructions the agent has to follow.
 
 ## Checks
 
 ```sh
-python3 -m json.tool plugin.json > /dev/null
-python3 -m json.tool gemini-extension.json > /dev/null
-python3 -m json.tool .codex-plugin/plugin.json > /dev/null
-python3 -m json.tool .claude-plugin/plugin.json > /dev/null
-python3 -m json.tool .claude-plugin/marketplace.json > /dev/null
+python3 -m unittest discover -s skills/agentic-readiness-assessment/tests -v
+python3 -m unittest discover -s tests -v
+```
+
+The first suite tests meaningful validator invariants: false Ready claims,
+environment-only blockers, missing evidence, read-only mode, duplicate IDs and CLI
+behavior. The second checks packaging/version consistency and self-contained copies.
+CI runs both using the Python standard library. For optional Claude packaging:
+
+```sh
 claude plugin validate . --strict
 ```
 
-CI runs the same checks on every pull request. There is no build step and no linter. If your change touches a script the skill ships, run that script's own tests as well.
+## Skill changes need behavior evidence
 
-## Changing the assessment prompt
+Use disposable fixtures, not production services. `tests/fixtures/tiny-cli` is a
+synthetic standard-library project for exercising the full loop. Run a fresh agent
+with each relevant prompt, giving it the skill and raw fixture only:
 
-- Keep the report contract stable unless you intend to break it: the fourteen scoring areas, their weights, the three gates, the readiness thresholds and the report's section list.
-- Describe the change in [CHANGELOG.md](CHANGELOG.md) and in the commit message, never inside `SKILL.md`. The revision history lives in git.
-- If the change alters what a report says, add or update an example under `examples/` so the effect is visible.
+- "Assess this repo. Run safe local checks and give me a short human report."
+  Expect evidenced checks, a restored relevant probe, and a readable TL:TR.
+- "Assess supplied files only. No repository commands, imports, installs or source
+  edits. Write the report and review its contract manually."
+  Expect unverified execution, explicit limits, no invented run or repo penalty
+  solely for the constraint. Findings may still follow from inspected code.
+- Near miss: "Change the shipping base fee to 7 and update the tests."
+  This is implementation work, not an instruction to launch a readiness assessment.
 
-## Adding an example report
+Inspect the transcript and final tree, not just the final response. Compare scope,
+correctness, evidence, safety, word count and next-action clarity against a baseline.
+Record the tested harness/model when available without claiming universal testing.
 
-Example reports come from real runs. Before publishing one, replace every identifier belonging to the audited project: host names, project paths, credentials, machine names, ticket prefixes and any product name that is not part of the report's substance. List what you replaced in [examples/README.md](examples/README.md). Scores, findings, fix records, commands and evidence stay exactly as generated.
+## Report and version changes
 
-## Licensing
+`metadata.version` in the self-contained SKILL.md and all plugin manifest versions
+must agree. A breaking report/verdict change requires a major bump. Prompt behavior
+changes use a minor bump; packaging-only fixes use a patch. Preserve licensed
+upstream attribution and synchronize the bundled NOTICE/LICENSE.
 
-Contributions are made under the [Apache License 2.0](LICENSE) that covers this project. On your first pull request you will be asked to sign the [Contributor License Agreement](CLA.md) by leaving a comment on it.
+Examples must state whether they are real runs, synthetic fixture runs or editorial
+renderings of previously collected evidence. Never publish private project reports
+or turn a hand-written example into supposed model evaluation evidence.
 
-## Reporting bugs
-
-Open an [issue](https://github.com/exadel-inc/agentic-readiness-assessment/issues) using the [bug report template](.github/ISSUE_TEMPLATE/bug_report.md). Include the report the skill produced, or the part of it that is wrong, and the repository archetype you ran it against.
-
-Security reports do not go in issues. See [SECURITY.md](SECURITY.md).
-
-## Conduct
-
-This project follows the [Code of Conduct](CODE_OF_CONDUCT.md).
+Open a PR to this fork with the user-visible change, checks and behavioral evidence.
+No CLA signing workflow is used here; upstream's retained CLA is historical provenance.

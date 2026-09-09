@@ -1,5 +1,16 @@
 # Changelog
 
+## [5.0.0] - 2026-09-09 (joozio fork)
+
+- Breaking report redesign: TL:TR first, six sections, one copy of each finding.
+- Replace weighted scores with evidence-backed readiness checks and explicit verdicts. V4 percentages are not comparable.
+- Separate repository gaps from harness/tool/platform limitations; support read-only and no-Python hosts.
+- Keep one self-contained Agent Skills folder; no model, MCP, subagent or host-metadata dependency.
+- Replace the inconsistent scoring validator with standard-library consistency checks and regression tests.
+- Add executed/read-only fixture evaluations and documented portability limits.
+
+## Upstream history
+
 All notable changes to this plugin are documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
