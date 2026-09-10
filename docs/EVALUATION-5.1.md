@@ -120,13 +120,16 @@ reviewed but are not published because they contain unrelated harness context.
 - Seven repository tests cover metadata/licensing, copied-folder execution, fixture
   preparation refusal and directory/symlink inventory. The copied-folder test reruns
   the skill tests; those are not counted again as new test cases.
-- The fixture runner passes its seven integrity/behavior groups. CI exercises the
-  code through a configured Python 3.9/3.14 and Node 22 matrix; local syntax checks
-  also target 3.9. Remote CI results are linked from the release commit.
+- The fixture runner passes its seven integrity/behavior groups.
+  [Release CI](https://github.com/joozio/agentic-readiness-assessment/actions/runs/34453125974)
+  passed on Python 3.9 and 3.14 with Node 22, including manifest agreement and
+  strict Claude plugin validation. Local syntax checks also target 3.9.
 - Existing v5.0 examples remain valid. New examples are actual untouched reports,
   with their provenance described in the [example index](../examples/README.md).
 - Real WeasyPrint 68.1 conversion produced readable multipage PDFs. Visual review
-  led to corrected print column widths, record grouping and page numbers. A separate
+  led to corrected print column widths, record grouping and page numbers. The real
+  reassessment exposed a narrow third status column, whose minimum width was
+  corrected and visually rechecked. A separate
   long-table check preserved all 80 row identifiers across five PDF pages.
 - HTML was exercised in Chrome at 390px and 1440px: no document overflow or page
   errors, working evidence anchors and no automatic network requests. These are

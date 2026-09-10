@@ -86,6 +86,7 @@ hr { margin: 2rem 0; border: 0; border-top: 1px solid var(--line); }
   th, td { padding: 2mm 2.5mm; }
   th:first-child, td:first-child { min-width: 25mm; }
   th:nth-child(2), td:nth-child(2) { min-width: 21mm; }
+  th:nth-child(3), td:nth-child(3) { min-width: 21mm; }
   tr, blockquote { break-inside: avoid; }
   pre { white-space: pre-wrap; overflow-wrap: anywhere; }
 }
