@@ -1,0 +1,39 @@
+name: Improve an assessment
+description: Report a misleading conclusion, unclear next action, missed issue or skill-selection mistake.
+title: "Assessment feedback: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Help us turn a real assessment problem into a regression case. Share only
+        a small sanitized example that you are allowed to make public. Private
+        repositories, credentials and full confidential reports are not needed.
+  - type: textarea
+    id: decision
+    attributes:
+      label: What decision were you trying to make?
+      description: Include the task or component being assessed and your original request.
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: What did the skill get wrong or leave unclear?
+      description: Give the relevant report excerpt and the evidence or outcome that changes it.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Small reproducible example
+      description: Optional fixture, documented commands, expected behavior and actual behavior. A prose explanation is useful too.
+  - type: textarea
+    id: conditions
+    attributes:
+      label: Assessment conditions
+      description: Skill version, model/harness if known, execution restrictions, platform and whether this was a reassessment. Unknown is an acceptable answer.
+  - type: textarea
+    id: usefulness
+    attributes:
+      label: What would make the next action useful?
+      description: For example, a missing acceptance check, clearer task boundary or evidence that would confirm closure.

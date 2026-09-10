@@ -1,0 +1,8 @@
+{
+  "name": "readiness-misleading-green",
+  "private": true,
+  "scripts": {
+    "test": "node check.js"
+  }
+}
+

@@ -1,0 +1,163 @@
+{
+  "model": "gpt-5.6-sol",
+  "provider": "codex",
+  "reasoning": "high",
+  "date": "2026-09-10",
+  "interpretation": "Diagnostic observations, not independent trials for a success-rate estimate. See EVALUATION-5.1.md for exclusions and protocol changes. Token and wall-clock data include host/tool retries.",
+  "trials": [
+    {
+      "case": "healthy-executed",
+      "variant": "old",
+      "note": "exploratory: installed-copy exposure",
+      "seconds": 332.9,
+      "output_tokens": 7763,
+      "uncached_input_tokens": 66601,
+      "cached_input_tokens": 558208,
+      "report_words": 735,
+      "report_sha256": "246d628dbfa3cd20b6f60b3c9547a935c41cab3ddb9b6845def471f63b7f0fb4"
+    },
+    {
+      "case": "healthy-executed",
+      "variant": "new",
+      "note": "exploratory: installed-copy exposure",
+      "seconds": 317.1,
+      "output_tokens": 8485,
+      "uncached_input_tokens": 70405,
+      "cached_input_tokens": 587776,
+      "report_words": 778,
+      "report_sha256": "226bc146b2509814308676754ad4f3f6285d5898bda5831bafff533f19eebf1f"
+    },
+    {
+      "case": "healthy-executed",
+      "variant": "old-clean",
+      "note": "reviewed",
+      "seconds": 330.1,
+      "output_tokens": 8917,
+      "uncached_input_tokens": 36396,
+      "cached_input_tokens": 544384,
+      "report_words": 684,
+      "report_sha256": "5ec7485ec56c51f07edf5824b9fd919d259aaa31f056a535e601c4c014f9bfbc"
+    },
+    {
+      "case": "healthy-executed",
+      "variant": "new-clean",
+      "note": "execution failure: unrelated test discovery",
+      "seconds": 356.0,
+      "output_tokens": 9279,
+      "uncached_input_tokens": 41809,
+      "cached_input_tokens": 704640,
+      "report_words": 991,
+      "report_sha256": "44e1bdd786b13b03a947a0881775b10982ef19bc17e957b0c9cf909b203461bb"
+    },
+    {
+      "case": "misleading-green-executed",
+      "variant": "old",
+      "note": "reviewed: feedback gap found; source and tree restored",
+      "seconds": 405.2,
+      "output_tokens": 10706,
+      "uncached_input_tokens": 42446,
+      "cached_input_tokens": 836352,
+      "report_words": 838,
+      "report_sha256": "ad8dea576d91083793c33a34f34f7722317f33f4ac45b07097f606c7a845f71a"
+    },
+    {
+      "case": "misleading-green-executed",
+      "variant": "new",
+      "note": "reviewed: feedback gap found; source and tree restored",
+      "seconds": 407.9,
+      "output_tokens": 11228,
+      "uncached_input_tokens": 39644,
+      "cached_input_tokens": 537472,
+      "report_words": 1240,
+      "report_sha256": "6951da8e49bfbf350043e5f89e81df1f597840ea61a9b30d5f211d4ebd1ac10e"
+    },
+    {
+      "case": "broken-package-executed",
+      "variant": "new",
+      "note": "diagnosis correct; initial prompt did not clearly prohibit disposable-copy probe; protocol repeat needed",
+      "seconds": 477.5,
+      "output_tokens": 12890,
+      "uncached_input_tokens": 45664,
+      "cached_input_tokens": 782976,
+      "report_words": 1223,
+      "report_sha256": "4e4d4516219dbd2e1d305864fe48e7342d0469f7254c46399df986dd96689986"
+    },
+    {
+      "case": "healthy-executed",
+      "variant": "new-corrected",
+      "note": "reviewed: fail-fast setup, correct probe execution, exact restoration; draft validator wording prefilled before actual successful run",
+      "seconds": 581.4,
+      "output_tokens": 8020,
+      "uncached_input_tokens": 33555,
+      "cached_input_tokens": 432768,
+      "report_words": 1034,
+      "report_sha256": "eb86052529a87a1cd360b9d514bdcaef6a8a7a988b2b7bbfc30f7372a3ac9728"
+    },
+    {
+      "case": "healthy-read-only",
+      "variant": "new",
+      "note": "reviewed: no repository execution, no target writes, conditional advice",
+      "seconds": 219.8,
+      "output_tokens": 6276,
+      "uncached_input_tokens": 27589,
+      "cached_input_tokens": 104064,
+      "report_words": 957,
+      "report_sha256": "bf36605c8fa254017e32b5a457c95f8a2d537f98b4e2cff25dba323370aec8e2"
+    },
+    {
+      "case": "heterogeneous-full-scope",
+      "variant": "new",
+      "note": "reviewed: both components and one-off bridge pass; no mutation; exact target preservation",
+      "seconds": 409.5,
+      "output_tokens": 11867,
+      "uncached_input_tokens": 21718,
+      "cached_input_tokens": 381952,
+      "report_words": 1171,
+      "report_sha256": "88f8b764e46fd8994cb7f7f8bc2c312d808661136a832ae5cda61ecf484b7dbd"
+    },
+    {
+      "case": "docs-only-inspected",
+      "variant": "new",
+      "note": "reviewed: inspection only, no invented toolchain requirements, no target changes",
+      "seconds": 278.1,
+      "output_tokens": 8067,
+      "uncached_input_tokens": 32452,
+      "cached_input_tokens": 237440,
+      "report_words": 1135,
+      "report_sha256": "dced25d19a8ffae92c95747c4e31dcbae128320e66088defc3e758883e9aba81"
+    },
+    {
+      "case": "implementation-near-miss",
+      "variant": "new",
+      "note": "correct implementation; full skill references loaded, so not a clean selection rejection",
+      "seconds": 171.7,
+      "output_tokens": 4683,
+      "uncached_input_tokens": 13293,
+      "cached_input_tokens": 263552,
+      "report_words": 444,
+      "report_sha256": "86944fdf9568c2eb3350f18ef94a16f4ed57292f7b66859f42b7060e309db913"
+    },
+    {
+      "case": "broken-package-executed",
+      "variant": "new-corrected",
+      "note": "reviewed: artifact failure demonstrated, no mutation, exact target preservation",
+      "seconds": 384.5,
+      "output_tokens": 10856,
+      "uncached_input_tokens": 59582,
+      "cached_input_tokens": 443008,
+      "report_words": 1336,
+      "report_sha256": "ae09dc35952f613b9f926d50d3c34577566fd098b83b4b23bc03e709ebe3c07a"
+    },
+    {
+      "case": "implementation-near-miss",
+      "variant": "metadata-only",
+      "note": "reviewed: implemented request without loading audit skill; three tests pass, only source/test changes",
+      "seconds": 109.8,
+      "output_tokens": 2825,
+      "uncached_input_tokens": 8098,
+      "cached_input_tokens": 207616,
+      "report_words": 98,
+      "report_sha256": "84991e34f5abc345ceb95f22feb85e4a904344c73dab56c8a18c8f4821d79fbf"
+    }
+  ]
+}

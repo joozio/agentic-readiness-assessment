@@ -5,11 +5,13 @@ An agent skill that answers three questions:
 **What can an AI coding agent take on here? What gets in its way? What should we fix first?**
 
 The result is a readable Markdown report beginning with **TL:TR — key findings and
-insights**, followed by readiness checks, prioritized fixes, strengths and evidence.
+insights**, followed by task-specific delegation advice, prioritized fixes and evidence.
+An included renderer creates a responsive HTML view and, with an installed optional
+renderer, a PDF. Later assessments can track the same findings through repairs.
 It runs locally using the tools your harness already provides. No backend, API key,
 MCP server or particular model is required.
 
-This is **version 5 of joozio's fork** of
+This is **version 5.1 of joozio's fork** of
 [Exadel's original skill](https://github.com/exadel-inc/agentic-readiness-assessment).
 Original attribution and Apache-2.0 licensing are retained. This fork is independently
 maintained and is not an Exadel-endorsed release.
@@ -58,6 +60,9 @@ Or specify constraints:
 
 > Review the supplied files only. Don't execute commands or change source files.
 
+> Reassess the API against our previous report. Show which findings are fixed,
+> still open or not rechecked, and whether the same tasks are now supported.
+
 Default output: `reports/agentic-readiness.md` under the assessed repository root.
 If that tree must remain read-only, use the host's artifact area or chat instead.
 Existing reports are preserved;
@@ -67,8 +72,8 @@ returned in the conversation.
 ## What the report looks like
 
 1. **TL:TR:** the verdict, key insights, delegation boundary and first action.
-2. **Readiness checks:** setup, deliverable, meaningful verification and a reversible probe.
-3. **What to improve:** each finding once, with impact, owner, repair and closure test.
+2. **Readiness checks:** setup, deliverable, verification and probe, plus concrete change-task boundaries.
+3. **What to improve:** each finding once, with evidence basis, priority, owner, effort, repair and closure test.
 4. **What already works:** evidenced strengths worth preserving.
 5. **Scope and limits:** what was assessed and what could not be established.
 6. **Evidence:** concise commands/results and file locations, after the decision content.
@@ -81,6 +86,28 @@ Verdicts are **Ready for bounded changes**, **Needs improvements**, **Blocked** 
 **Inconclusive**, paired with evidence confidence. There is no percentage score.
 Repository defects, host limitations and external controls have separate owners.
 Missing Python or a browser on the audit machine is not a repository defect.
+Findings distinguish **Demonstrated** failures, **Inspected** risks and **Hypotheses**.
+One successful probe supports its specific behavior, not every component or release path.
+
+## Read and reuse the report
+
+From the copied skill directory, using Python 3.9+:
+
+```sh
+python3 scripts/render_report.py /path/to/report.md
+python3 scripts/render_report.py /path/to/report.md --pdf
+python3 scripts/compare_reports.py /path/to/previous.md /path/to/current.md
+```
+
+HTML uses only the standard library. PDF additionally needs an already-installed
+WeasyPrint; no packages are installed automatically. If PDF conversion is unavailable,
+the HTML remains usable. Outputs are preserved unless `--force` is explicit.
+See the [export guide](skills/agentic-readiness-assessment/references/export.md).
+
+Comparison uses stable finding Keys and matching repository/scope metadata. It marks
+an omitted finding **Not rechecked**, never automatically Fixed. Closure requires
+current evidence. Older reports without Keys need manual mapping. See the
+[reassessment guide](skills/agentic-readiness-assessment/references/reassessment.md).
 
 ## Execution and trust
 
@@ -120,6 +147,10 @@ supports partial and read-only assessments explicitly. **V4 scores and V5 verdic
 are not numerically comparable.** Old reports remain labeled as historical examples.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for tests and realistic evaluation cases.
+The [research review](docs/RESEARCH.md) explains the 5.1 choices, and the
+[5.1 evaluation record](docs/EVALUATION-5.1.md) distinguishes code checks from actual
+fresh-agent trials. The [reusable evaluation suite](tests/evals/README.md) supports
+future comparisons across revisions and harnesses.
 
 ## License and support
 

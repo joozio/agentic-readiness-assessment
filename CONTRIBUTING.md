@@ -8,12 +8,14 @@ reader's decision, not the number of instructions the agent has to follow.
 ```sh
 python3 -m unittest discover -s skills/agentic-readiness-assessment/tests -v
 python3 -m unittest discover -s tests -v
+python3 tests/evals/runner.py check
 ```
 
-The first suite tests meaningful validator invariants: false Ready claims,
-environment-only blockers, missing evidence, read-only mode, duplicate IDs and CLI
-behavior. The second checks packaging/version consistency and self-contained copies.
-CI runs both using the Python standard library. For optional Claude packaging:
+The first suite checks task/verdict consistency, evidence basis, stable finding
+comparison, safe export and CLI behavior. The second checks packaging/version
+consistency and self-contained copies. The fixture runner verifies the known local
+behaviors of five tiny repositories; JavaScript cases need Node. These deterministic
+checks are separate from evaluating an agent. For optional Claude packaging:
 
 ```sh
 claude plugin validate . --strict
@@ -21,9 +23,11 @@ claude plugin validate . --strict
 
 ## Skill changes need behavior evidence
 
-Use disposable fixtures, not production services. `tests/fixtures/tiny-cli` is a
-synthetic standard-library project for exercising the full loop. Run a fresh agent
-with each relevant prompt, giving it the skill and raw fixture only:
+Use the [evaluation suite](tests/evals/README.md) in disposable copies, with its
+oracles kept outside the agent's view. Preserve a baseline skill before editing.
+Run a fresh agent for each old/new case with the same prompt and permissions.
+The historical `tests/fixtures/tiny-cli` remains available for v5 reproduction.
+Examples of supported cases:
 
 - "Assess this repo. Run safe local checks and give me a short human report."
   Expect evidenced checks, a restored relevant probe, and a readable TL:TR.
@@ -37,6 +41,10 @@ with each relevant prompt, giving it the skill and raw fixture only:
 Inspect the transcript and final tree, not just the final response. Compare scope,
 correctness, evidence, safety, word count and next-action clarity against a baseline.
 Record the tested harness/model when available without claiming universal testing.
+Keep timing/token telemetry when available and label missing telemetry unavailable.
+Grade semantic outcomes separately from validator success. Re-run relevant cases
+after prompt corrections, preserve the failed trial, and report the actual revision
+tested. A single attempt is an observation, not a reliability estimate.
 
 ## Report and version changes
 

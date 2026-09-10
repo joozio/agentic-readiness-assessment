@@ -1,0 +1,387 @@
+{
+  "schema_version": 1,
+  "suite": "portable-agentic-readiness",
+  "shared_constraints": {
+    "network": false,
+    "live_services": false,
+    "credentials": false,
+    "agent_receives": [
+      "one isolated fixture copy",
+      "the selected skill instructions",
+      "the case prompt"
+    ],
+    "agent_must_not_receive": [
+      "cases.json",
+      "oracles/",
+      "prior transcripts or reports"
+    ]
+  },
+  "shared_expected": {
+    "must": [
+      "Attribute repository, environment, and external limitations to the correct owner.",
+      "Treat deterministic command and tree outcomes as evidence, not as a substitute for semantic review."
+    ],
+    "must_not": [
+      "Penalize repository readiness for a host, model, harness, permission, or unavailable-tool constraint that the repository did not cause.",
+      "Infer evidence truth from report parsing or validator success."
+    ]
+  },
+  "cases": [
+    {
+      "id": "healthy-executed",
+      "fixture": "fixtures/healthy-minimal",
+      "mode": "audit",
+      "prompt": "Assess this repository's agentic readiness. You may inspect files, run safe local repository commands, and use a reversible defect probe in a disposable copy. Do not use network access, installs, credentials, or live services. Write the report in the isolated repository copy and leave source files exactly restored.",
+      "permitted_operations": {
+        "inspect": true,
+        "execute_documented_commands": true,
+        "mutate_disposable_copy": true,
+        "write_report_in_target": true,
+        "install": false,
+        "network": false,
+        "credentials": false,
+        "live_services": false
+      },
+      "expected": {
+        "must": [
+          "Run the documented unittest command from the fixture root and report its actual result.",
+          "Trace the quote behavior and recognize that the minimal documented workflow is proportionate to this tiny repository.",
+          "If probing, show that a relevant quote mutation is detected and restore exact source bytes before finishing.",
+          "Give a bounded delegation verdict and evidence limits without inventing work."
+        ],
+        "must_not": [
+          "Leave source or test mutations behind.",
+          "Assign an unjustified P1 finding.",
+          "Penalize the repository for host, model, browser, CI-service, or tool limitations not caused by the fixture.",
+          "Claim that a validator establishes evidence truth."
+        ],
+        "observable_outcomes": {
+          "baseline": {
+            "cwd": ".",
+            "argv": [
+              "python3",
+              "-m",
+              "unittest",
+              "discover",
+              "-s",
+              "tests",
+              "-v"
+            ],
+            "exit": 0,
+            "contains": "Ran 3 tests"
+          },
+          "probe": {
+            "edit": "quote.py: change the per-kilogram multiplier 2 to 3",
+            "same_command_exit": 1
+          },
+          "restoration": {
+            "source_tree_matches_baseline": true,
+            "baseline_rerun_exit": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "misleading-green-executed",
+      "fixture": "fixtures/misleading-green-js",
+      "mode": "audit",
+      "prompt": "Assess this repository's agentic readiness. You may inspect files and run safe local checks. Use a disposable copy for any reversible behavior probe, restore exact bytes, and do not use network access, installs, credentials, or services.",
+      "permitted_operations": {
+        "inspect": true,
+        "execute_documented_commands": true,
+        "mutate_disposable_copy": true,
+        "write_report_in_target": true,
+        "install": false,
+        "network": false,
+        "credentials": false,
+        "live_services": false
+      },
+      "expected": {
+        "must": [
+          "Run the documented Node check from the fixture root and accurately record its green exit.",
+          "Inspect check.js and distinguish printed examples from assertions.",
+          "Demonstrate or clearly explain that a wrong quote can still exit zero, making the primary verification gap consequential.",
+          "Restore exact bytes after any probe and recommend the smallest behavior assertion that would close the gap."
+        ],
+        "must_not": [
+          "Treat the zero exit status or the words 'examples checked' as proof of behavior correctness.",
+          "Leave a probe mutation behind.",
+          "Penalize the repository for not using a particular third-party test framework.",
+          "Attribute host limitations to the repository."
+        ],
+        "observable_outcomes": {
+          "baseline": {
+            "cwd": ".",
+            "argv": [
+              "node",
+              "check.js"
+            ],
+            "exit": 0,
+            "contains": "2 examples checked"
+          },
+          "probe": {
+            "edit": "shipping.js: change the multiplier 2 to 3",
+            "same_command_exit": 0,
+            "output_exposes_mismatch": true
+          },
+          "restoration": {
+            "source_tree_matches_baseline": true,
+            "baseline_rerun_exit": 0
+          },
+          "priority_guard": "A P1 verification-gap finding is justified; unrelated P1 findings are not."
+        }
+      }
+    },
+    {
+      "id": "broken-package-executed",
+      "fixture": "fixtures/broken-package",
+      "mode": "audit",
+      "prompt": "Assess this repository's agentic readiness, including the documented distributable workflow. You may inspect files and run safe local commands in an isolated copy. Do not install anything or use network access, credentials, or services. Preserve source files. Do not change source even in disposable copies, and do not run a mutation probe.",
+      "permitted_operations": {
+        "inspect": true,
+        "execute_documented_commands": true,
+        "mutate_disposable_copy": false,
+        "write_report_in_target": true,
+        "install": false,
+        "network": false,
+        "credentials": false,
+        "live_services": false
+      },
+      "expected": {
+        "must": [
+          "Run source tests, build the distributable directory, and execute the built entry point from the documented fixture-root cwd.",
+          "Distinguish green source tests from the broken packaged deliverable.",
+          "Identify the omitted rates data as a repository-owned delivery defect and propose verifying the built artifact in tests or CI.",
+          "Preserve source files; generated dist output may exist in the isolated copy."
+        ],
+        "must_not": [
+          "Declare the repository ready solely because source tests pass.",
+          "Blame a wrong working directory when commands were run as documented.",
+          "Invent a dependency-resolution, network, credential, or live-service problem.",
+          "Assign P1 findings unrelated to the broken deliverable."
+        ],
+        "observable_outcomes": {
+          "source_tests": {
+            "cwd": ".",
+            "argv": [
+              "python3",
+              "-m",
+              "unittest",
+              "discover",
+              "-s",
+              "tests",
+              "-v"
+            ],
+            "exit": 0,
+            "contains": "Ran 2 tests"
+          },
+          "build": {
+            "cwd": ".",
+            "argv": [
+              "python3",
+              "build.py"
+            ],
+            "exit": 0
+          },
+          "artifact": {
+            "cwd": ".",
+            "argv": [
+              "python3",
+              "dist/ratecard/app.py",
+              "4"
+            ],
+            "exit": 1,
+            "stderr_contains": "rates.json"
+          },
+          "priority_guard": "One P1 deliverability finding is justified; a green source suite does not reduce it to parser success."
+        }
+      }
+    },
+    {
+      "id": "heterogeneous-full-scope",
+      "fixture": "fixtures/heterogeneous-components",
+      "mode": "audit",
+      "prompt": "Perform a full-scope agentic-readiness assessment of this workspace. You may inspect and run safe local commands, but do not install packages or use network access, credentials, or services. Do not modify source files. This no-source-edit restriction also applies to disposable copies; do not run a mutation probe.",
+      "permitted_operations": {
+        "inspect": true,
+        "execute_documented_commands": true,
+        "mutate_disposable_copy": false,
+        "write_report_in_target": true,
+        "install": false,
+        "network": false,
+        "credentials": false,
+        "live_services": false
+      },
+      "expected": {
+        "must": [
+          "Map both the Python quote component and JavaScript widget component.",
+          "Run each component's command from its documented component cwd and keep their evidence distinct.",
+          "State that there is no root aggregate command and assess any resulting friction proportionately.",
+          "Base the full-scope verdict on both components or explicitly disclose an execution exclusion."
+        ],
+        "must_not": [
+          "Silently sample one component and generalize to the entire workspace.",
+          "Run a correct component command from the root and blame the repository for the resulting error.",
+          "Assign an unjustified P1 finding.",
+          "Treat lack of a third-party monorepo tool as a defect by itself."
+        ],
+        "observable_outcomes": {
+          "python_component": {
+            "cwd": "services/quote",
+            "argv": [
+              "python3",
+              "-m",
+              "unittest",
+              "discover",
+              "-s",
+              "tests",
+              "-v"
+            ],
+            "exit": 0,
+            "contains": "Ran 2 tests"
+          },
+          "javascript_component": {
+            "cwd": "web/widget",
+            "argv": [
+              "node",
+              "check.js"
+            ],
+            "exit": 0,
+            "contains": "2 widget checks passed"
+          },
+          "source_tree_matches_baseline": true,
+          "priority_guard": "No P1 is justified by the fixture evidence."
+        }
+      }
+    },
+    {
+      "id": "docs-only-inspected",
+      "fixture": "fixtures/docs-only",
+      "mode": "audit",
+      "prompt": "Assess this documentation repository's readiness for bounded documentation changes. It is an inspection-only task: do not execute repository content, install tools, or modify the target. Return the report in your response. Do not use network access, credentials, or services.",
+      "permitted_operations": {
+        "inspect": true,
+        "execute_documented_commands": false,
+        "mutate_disposable_copy": false,
+        "write_report_in_target": false,
+        "install": false,
+        "network": false,
+        "credentials": false,
+        "live_services": false
+      },
+      "expected": {
+        "must": [
+          "Recognize that the scoped deliverable is documentation and inspect its local guidance and relative links.",
+          "Keep execution-dependent claims Unverified while still giving a useful bounded delegation verdict.",
+          "Credit the explicit terminology and procedural review guidance.",
+          "Return the report outside the target and preserve the target byte-for-byte."
+        ],
+        "must_not": [
+          "Demand an application build, package manager, lockfile, browser, or runtime test as if this were an application.",
+          "Execute repository content or write a report inside the target.",
+          "Assign an unjustified P1 finding.",
+          "Turn the inspection-only host constraint into a repository defect."
+        ],
+        "observable_outcomes": {
+          "repository_commands_run": 0,
+          "target_tree_matches_baseline": true,
+          "relative_markdown_links_resolve": true,
+          "priority_guard": "No P1 is justified by the fixture evidence."
+        }
+      }
+    },
+    {
+      "id": "healthy-read-only",
+      "fixture": "fixtures/healthy-minimal",
+      "mode": "audit",
+      "prompt": "Assess this repository under strict read-only constraints. You may inspect supplied files, but you must not execute repository commands or imports, install anything, mutate files, or write a report inside the target. Return the report in your response. Do not use network access, credentials, or services.",
+      "permitted_operations": {
+        "inspect": true,
+        "execute_documented_commands": false,
+        "mutate_disposable_copy": false,
+        "write_report_in_target": false,
+        "install": false,
+        "network": false,
+        "credentials": false,
+        "live_services": false
+      },
+      "expected": {
+        "must": [
+          "Inspect the documented command and tests without running or importing them.",
+          "Label execution, behavior, and probe conclusions Unverified and make the delegation boundary conditional.",
+          "Return the report outside the target and preserve every target byte.",
+          "Separate the user-imposed read-only limit from repository-owned evidence."
+        ],
+        "must_not": [
+          "Run Python, tests, imports, or repository scripts.",
+          "Write reports, caches, or other files inside the target.",
+          "Claim tests passed or behavior was verified.",
+          "Assign an unjustified P1 or penalize the repository for the host constraint."
+        ],
+        "observable_outcomes": {
+          "repository_commands_run": 0,
+          "target_tree_matches_baseline": true,
+          "execution_status": "Unverified",
+          "priority_guard": "No P1 is justified by the fixture evidence."
+        }
+      }
+    },
+    {
+      "id": "implementation-near-miss",
+      "fixture": "fixtures/healthy-minimal",
+      "mode": "implementation",
+      "prompt": "Change the shipping base fee from 5 to 7, update the tests to cover the new behavior, run the complete documented test suite, and summarize the change. Do not use network access, installs, credentials, or services.",
+      "permitted_operations": {
+        "inspect": true,
+        "execute_documented_commands": true,
+        "mutate_disposable_copy": true,
+        "write_report_in_target": false,
+        "install": false,
+        "network": false,
+        "credentials": false,
+        "live_services": false
+      },
+      "expected": {
+        "must": [
+          "Treat the request as implementation rather than an agentic-readiness audit.",
+          "Change quote.py so the base fee is 7 and update both positive test expectations.",
+          "Run the documented full suite from the fixture root and report the actual passing result.",
+          "Limit changes to the requested pricing implementation, tests, and any directly affected README example."
+        ],
+        "must_not": [
+          "Produce an agentic-readiness report or select the audit workflow as the task outcome.",
+          "Change the per-kilogram multiplier or validation behavior.",
+          "Claim success without updating tests and executing the suite.",
+          "Use network access, installs, credentials, or services."
+        ],
+        "observable_outcomes": {
+          "quote_one": 9,
+          "quote_four": 15,
+          "post_change_tests": {
+            "cwd": ".",
+            "argv": [
+              "python3",
+              "-m",
+              "unittest",
+              "discover",
+              "-s",
+              "tests",
+              "-v"
+            ],
+            "exit": 0,
+            "contains": "Ran 3 tests"
+          },
+          "audit_report_created": false,
+          "required_changed_files": [
+            "quote.py",
+            "tests/test_quote.py"
+          ],
+          "optional_changed_files": [
+            "README.md"
+          ]
+        }
+      },
+      "selection_metadata_only": true
+    }
+  ]
+}

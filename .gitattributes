@@ -1,0 +1,4 @@
+# Preserve the published raw reports, including Markdown hard line breaks.
+examples/v5.1/*.md whitespace=-blank-at-eol
+# Fixture bytes are part of the recorded evaluation, including terminal blank lines.
+tests/evals/fixtures/** whitespace=-blank-at-eof

@@ -20,11 +20,15 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
       - run: python -m unittest discover -s skills/agentic-readiness-assessment/tests -v
       - run: python -m unittest discover -s tests -v
+      - run: python tests/evals/runner.py check
       - name: Validate current examples
         run: |
-          for report in examples/v5/*.md; do
+          for report in examples/v5/*.md examples/v5.1/*.md; do
             python skills/agentic-readiness-assessment/scripts/validate_report.py "$report"
           done
 

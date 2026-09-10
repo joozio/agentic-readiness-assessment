@@ -1,0 +1,26 @@
+{
+  "algorithm": "sha256",
+  "sha256": {
+    "broken-package/README.md": "dfe9920ad51a4520b07c27f8c1fc08eebf5ceeed10fee757698026621e788323",
+    "broken-package/build.py": "0488b748b917e87632e32f3a1a70ebbb08d69fb8b2b7916108a3ff1e40e3fcf8",
+    "broken-package/src/ratecard/app.py": "66e2246941b2e491f48ef48712c54d68357d6de7ba061b9c334f8c118bc9653a",
+    "broken-package/src/ratecard/data/rates.json": "572024e761ad5a0a4753efd822643efa24cad3a0c92ad4bea22030e933db356c",
+    "broken-package/src/ratecard/pricing.py": "efd76d72c2b1513f14cb91f0b2272bf3a9b57ff56bda50c74908c6bfc8842c42",
+    "broken-package/tests/test_ratecard.py": "62d1333090f72b7c471758e037ed1ef50e3afb10ba5366f54ea71836c370925e",
+    "docs-only/CONTRIBUTING.md": "4c0508afd4e5dacb2851d5bfd07477119d732fe72e1dcc05875d2a1512d19127",
+    "docs-only/README.md": "525a5f27d19b30f685a033e244c1ff4f2517281b8b371a432363b2860c1d92dd",
+    "docs-only/docs/escalation.md": "85856a7c49dbb4245179093c8880ea8c5904eb45a92d35d5c39af0655462bce2",
+    "healthy-minimal/README.md": "3c5d037ec3758327b59272a0aa9f042a7b827e9c58beb396de450d635e330c91",
+    "healthy-minimal/quote.py": "184d4efeaf2803082e0a92b7302863ce39a5f38e49fa450d4c9eae5fcc6b1592",
+    "healthy-minimal/tests/test_quote.py": "631e269069ee65588a980229d88bd3af612919d609368a4285eefc5e6e68eb78",
+    "heterogeneous-components/README.md": "864d2eba5507ad368d29cdcfd0e9928b475c5eb9b424c8737bba9149d3b818e4",
+    "heterogeneous-components/services/quote/quote.py": "fe53b579e0f671a6acb33d6b9e842fabaf03a5906016759e35f35473ac5dc20c",
+    "heterogeneous-components/services/quote/tests/test_quote.py": "a1f2d1057030d1c5e9484e1d444b1b0b36a672dee0b68decc83dda90c1460fc3",
+    "heterogeneous-components/web/widget/check.js": "5bf580d2612ebc25090787d1533a1f54e39ea2f5ba8cd7bae11dd748ae003e18",
+    "heterogeneous-components/web/widget/render.js": "0e9e3715d96c720b12c97073fdf21afd91879f43bcdc8582e5a06fc10deeb2ba",
+    "misleading-green-js/README.md": "83a71af77df4f7c0c9e740b61d85df9182bf64cab7a4727dd9a77218e064ae38",
+    "misleading-green-js/check.js": "fb8b48fc24c9acd4bf5e38503a882bc8be6832cdeb40f49e993766fa44044e8b",
+    "misleading-green-js/package.json": "8e45d30ca0d7fccb9a6bfdc5e0f57d006d03d9409121b4a1a8e26a8770b8e5ee",
+    "misleading-green-js/shipping.js": "02e8f7fbefae308307f5d23ce112906b06afb483581c866149b51891a4882293"
+  }
+}

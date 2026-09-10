@@ -1,5 +1,15 @@
 # Changelog
 
+## [5.1.0] - 2026-09-10 (joozio fork)
+
+- Add task-specific delegation boundaries and distinguish demonstrated failures, inspected risks and hypotheses.
+- Calibrate priorities to consequence and existing controls; add relative effort and stable finding Keys.
+- Add optional self-contained HTML and installed-WeasyPrint PDF export with no report-triggered resource fetching.
+- Add reassessment guidance and conservative finding comparison: absent is not automatically fixed.
+- Clarify valid mutation probes, artifact execution, proportional investigation and audit-instruction trust.
+- Extend consistency validation while retaining support for historical 5.0 reports.
+- Add primary-source research and reusable Python, JavaScript, packaging, documentation, read-only and near-miss evaluation cases.
+
 ## [5.0.0] - 2026-09-09 (joozio fork)
 
 - Breaking report redesign: TL:TR first, six sections, one copy of each finding.

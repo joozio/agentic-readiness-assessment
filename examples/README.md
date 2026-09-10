@@ -1,6 +1,27 @@
 # Example reports
 
-## Current format: version 5
+## Current format: version 5.1
+
+These are untouched outputs from fresh GPT Sol / Codex assessments of the synthetic
+[evaluation fixtures](../tests/evals/README.md) on 2026-09-10. Temporary paths identify
+the original runs; they are provenance, not expected paths on your machine.
+
+| Example | What to look for |
+|---|---|
+| [Healthy minimal repository](v5.1/healthy.md) | A detected and restored defect supports bounded work; a small CLI-test improvement can coexist with Ready. |
+| [Misleading green check](v5.1/misleading-green.md) | Demonstrated feedback gap, inspected validation risk, separate task boundaries and stable finding Keys. |
+| [Mixed Python/JavaScript workspace](v5.1/mixed-components.md) | Both components are exercised; a real bridge check informs conditional advice for shared payload changes. |
+| [Broken distributable](v5.1/broken-distributable.md) | Green source tests coexist with an unusable artifact; a no-mutation constraint leaves the probe Unverified. |
+| [Documentation-only repository](v5.1/docs-only.md) | A valid manual workflow does not imply a missing application toolchain. |
+| [Strict read-only assessment](v5.1/read-only.md) | No repository execution or target writes; useful conditional advice without inventing test results. |
+
+The integrating reviewer also ran the validator after these trials. In the
+read-only case, the assessment agent itself performed manual review only. Validation
+does not establish evidence truth. [The 5.1 evaluation record](../docs/EVALUATION-5.1.md)
+includes failed and ambiguous trials, constraints and limits. Private application
+reports are not published here.
+
+## Previous format: version 5.0
 
 These examples assess the synthetic [parcel-quote fixture](../tests/fixtures/tiny-cli).
 They came from independent Claude Code / Claude Opus 5 assessments on 2026-09-09,
