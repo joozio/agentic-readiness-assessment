@@ -16,6 +16,21 @@ This is **version 5.1 of joozio's fork** of
 Original attribution and Apache-2.0 licensing are retained. This fork is independently
 maintained and is not an Exadel-endorsed release.
 
+## Companion prototype: change QA
+
+The development branch adds [change-qa](skills/change-qa/SKILL.md), a separate,
+independently copyable skill in this same repository. Readiness assesses the conditions
+for agent work; QA checks a concrete change against the original request and relevant
+regressions. Its report begins with TL:TR and maps each acceptance criterion to
+Verified, Failed or Unverified evidence.
+
+> Use change-qa to verify this diff against the original request. Exercise the actual
+> entry point, report unmet criteria, and preserve the source.
+
+This is a 0.1 prototype. See [design and evaluation](docs/CHANGE-QA.md) and the
+[reusable cases](tests/change-qa/README.md). Copy the full `skills/change-qa/` folder
+if you choose to try it; its Markdown workflow has no runtime dependency.
+
 ## Install on your harness
 
 The portable unit is the entire folder:
@@ -43,7 +58,7 @@ and its references and ask it to follow them. Reading Markdown is the baseline
 compatibility requirement; automatic discovery depends on the host.
 
 The repository also retains thin Claude, Codex and Gemini packaging manifests for
-clients that support those formats. They reference the same skill. They are not a
+clients that support those formats. Their skill discovery includes the repository's `skills/` directory where supported. They are not a
 promise that every version of every client has been tested. The source folder is
 self-contained and remains usable without the plugin manifests.
 

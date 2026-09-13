@@ -1,0 +1,20 @@
+{
+  "checkout-route/baseline/README.md": "c8709273144a60323feda7c755c76a749e802d6663b8df7fd9c0b759f256dfe0",
+  "checkout-route/baseline/app.py": "97e2195923e7aaa68334f0922c5db67c4783a73c7b9d78ecf167da1a9839806b",
+  "checkout-route/baseline/tests/test_orders.py": "30f7295d1e3b12c7c4de74cc111e5633f45b55164f76da40757aba4f5c87e432",
+  "checkout-route/candidate/README.md": "c8709273144a60323feda7c755c76a749e802d6663b8df7fd9c0b759f256dfe0",
+  "checkout-route/candidate/app.py": "c01d748e23c1b27ea8a79c93445e03c8e0bf3235a23e6dc0d0bcc5ee58573664",
+  "checkout-route/candidate/tests/test_orders.py": "a66d89bf9204c0a3de374c8cc2a738fe498051c79f9fcfacbbe93a0ad095cf17",
+  "shipping-boundary/baseline/README.md": "bb39e6fb125a3d17d46b4943662cb20a874fc9566097124b45e4b43e1d70592e",
+  "shipping-boundary/baseline/shipping.py": "e254b7435a34db71fc542526f13dd619d93d70dd488551fec91f6e62c8f09a5c",
+  "shipping-boundary/baseline/tests/test_shipping.py": "ca1bb2de3b9330d8206b78eb11808cc823a96e857cf869ca7de275f2b026b9e9",
+  "shipping-boundary/candidate/README.md": "bb39e6fb125a3d17d46b4943662cb20a874fc9566097124b45e4b43e1d70592e",
+  "shipping-boundary/candidate/shipping.py": "ebaec4813fffc58cc9eab3941298f225db7bc8f47354e8104d1dcc2d3c45b07f",
+  "shipping-boundary/candidate/tests/test_shipping.py": "be11c547b424051b474695722cd6cf9d7e8b9f472dfd47f4ac63c7f4a3c53a43",
+  "shipping-correct/baseline/README.md": "bb39e6fb125a3d17d46b4943662cb20a874fc9566097124b45e4b43e1d70592e",
+  "shipping-correct/baseline/shipping.py": "e254b7435a34db71fc542526f13dd619d93d70dd488551fec91f6e62c8f09a5c",
+  "shipping-correct/baseline/tests/test_shipping.py": "ca1bb2de3b9330d8206b78eb11808cc823a96e857cf869ca7de275f2b026b9e9",
+  "shipping-correct/candidate/README.md": "bb39e6fb125a3d17d46b4943662cb20a874fc9566097124b45e4b43e1d70592e",
+  "shipping-correct/candidate/shipping.py": "dbbe07b7f7903573f71b811f7e220b608939d740922564644637848055306089",
+  "shipping-correct/candidate/tests/test_shipping.py": "be11c547b424051b474695722cd6cf9d7e8b9f472dfd47f4ac63c7f4a3c53a43"
+}
