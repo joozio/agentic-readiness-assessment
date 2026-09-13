@@ -1,0 +1,22 @@
+{
+  "cases": [
+    {
+      "id": "shipping-boundary",
+      "fixture": "fixtures/shipping-boundary",
+      "request": "Shipping is free at 5000 cents or more; smaller nonnegative totals cost 500. Negative totals remain rejected. CLI must reflect the same result.",
+      "expected": "Changes needed: exactly 5000 costs 500 through function and CLI despite green tests."
+    },
+    {
+      "id": "shipping-correct",
+      "fixture": "fixtures/shipping-correct",
+      "request": "Shipping is free at 5000 cents or more; smaller nonnegative totals cost 500. Negative totals remain rejected. CLI must reflect the same result.",
+      "expected": "Verified for stated scope: boundary, adjacent cases and CLI pass; do not demand unrelated new tooling."
+    },
+    {
+      "id": "checkout-route",
+      "fixture": "fixtures/checkout-route",
+      "request": "Reject negative quantities at checkout. POST /checkout with a negative quantity must return 400 and create no order. Valid positive quantities should continue to return 201 and create one order.",
+      "expected": "Changes needed: service guard works but the real WSGI route bypasses it, returns 201 and creates a negative order."
+    }
+  ]
+}

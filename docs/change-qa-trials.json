@@ -1,0 +1,38 @@
+[
+  {
+    "case": "case-a-control",
+    "words": 253,
+    "report_sha256": "9df878851067640b0929d8930e0fe65dd7f21e549d92834b0762df9929cc18a7",
+    "seconds": 74.4,
+    "snapshot_files_preserved": true
+  },
+  {
+    "case": "case-b-skill",
+    "words": 630,
+    "report_sha256": "aec81e9fda36499f01800422eb582d0bf35633c5fea64400637e8daa4e216efa",
+    "seconds": 156.8,
+    "snapshot_files_preserved": true
+  },
+  {
+    "case": "case-c-skill",
+    "words": 567,
+    "report_sha256": "04571be00b6f842889e2976db7ca184fff5694428f5260e441e13b682c403079",
+    "seconds": 115.3,
+    "snapshot_files_preserved": true
+  },
+  {
+    "case": "case-d-skill",
+    "words": 651,
+    "report_sha256": "047a4598c756e5e35d9a8baa85dca738eab4914d0337e51bfcaafcae1931c8dd",
+    "seconds": 307.4,
+    "snapshot_files_preserved_at_end": true,
+    "execution_issue": "Created then removed bytecode in protected snapshots; no-writes instruction was violated."
+  },
+  {
+    "case": "case-e-skill",
+    "words": 687,
+    "report_sha256": "20866e55f758ca61744d02ee244c82cc73dc46a7316b5497d1dbc4faffe2a9a3",
+    "seconds": 216.3,
+    "snapshot_files_preserved_at_end": true
+  }
+]
