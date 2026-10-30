@@ -33,7 +33,7 @@ def sections(text):
 
 
 def records(body, prefix):
-    matches = list(re.finditer(r'^### (' + prefix + r'\d{2,})\s+[—–-]\s+\S.*$', body, re.M))
+    matches = list(re.finditer(r'^### (' + prefix + r'\d{2,})[ \t]+[—–-][ \t]+\S.*$', body, re.M))
     return [(m[1], body[m.end():matches[i + 1].start() if i + 1 < len(matches) else len(body)])
             for i, m in enumerate(matches)]
 
@@ -45,6 +45,7 @@ def strip_fences(text):
 
 def check_report(text):
     errors, warnings = [], []
+    text = text[1:] if text.startswith('﻿') else text  # UTF-8 BOM from some editors
     clean = strip_fences(text)
     parts = sections(clean)
     if tuple(name for name, _ in parts) != SECTIONS:
