@@ -39,6 +39,12 @@ def tree(path):
     }
 
 
+def symlinks(path):
+    # tree() skips links, so a link could hide oracle content from the hash check
+    # while copytree() follows it into the presented copy.
+    return sorted(link.relative_to(path).as_posix() for link in path.rglob("*") if link.is_symlink())
+
+
 def load_manifest():
     return json.loads(MANIFEST.read_text(encoding="utf-8"))
 
@@ -93,6 +99,9 @@ def validate_manifest():
 
 def validate_integrity():
     expected = json.loads(INTEGRITY.read_text(encoding="utf-8"))["sha256"]
+    links = symlinks(FIXTURES)
+    if links:
+        raise CheckFailure("fixtures must not contain symlinks: {!r}".format(links))
     actual = tree(FIXTURES)
     if actual != expected:
         missing = sorted(set(expected) - set(actual))
@@ -309,6 +318,9 @@ def prepare(case_id, destination):
     if destination.exists():
         raise CheckFailure("destination already exists: {}".format(destination))
     source = ROOT / case["fixture"]
+    links = symlinks(source)
+    if links:
+        raise CheckFailure("fixture must not contain symlinks: {!r}".format(links))
     shutil.copytree(source, destination)
     print(destination)
 

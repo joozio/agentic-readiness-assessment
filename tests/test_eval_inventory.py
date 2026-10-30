@@ -1,5 +1,6 @@
 """A byte-only diff must not hide forbidden empty directories or follow links."""
 import json
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -36,6 +37,21 @@ class InventoryTests(unittest.TestCase):
             self.assertIn('outside-link', changes['symlinks'])
             self.assertEqual(changes['modified'], [])
             self.assertEqual(changes['added'], [])
+
+    def test_fixture_symlink_cannot_smuggle_oracles_into_a_trial_copy(self):
+        with tempfile.TemporaryDirectory() as temp:
+            suite = Path(temp) / 'evals'
+            shutil.copytree(RUNNER.parent, suite, ignore=shutil.ignore_patterns('__pycache__'))
+            (suite / 'fixtures/healthy-minimal/notes').symlink_to('../../oracles')
+            runner = suite / 'runner.py'
+            check = subprocess.run([sys.executable, str(runner), 'check'], capture_output=True, text=True)
+            self.assertEqual(check.returncode, 1, check.stdout)
+            self.assertIn('must not contain symlinks', check.stderr)
+            trial = Path(temp) / 'trial'
+            prepare = subprocess.run([sys.executable, str(runner), 'prepare', 'healthy-executed', trial],
+                                     capture_output=True, text=True)
+            self.assertEqual(prepare.returncode, 1, prepare.stdout)
+            self.assertFalse(trial.exists())
 
 
 if __name__ == '__main__':
