@@ -16,7 +16,8 @@ from urllib.parse import urlsplit
 
 HEADING = re.compile(r"^(#{1,6})\s+(.+?)\s*$")
 LIST_ITEM = re.compile(r"^\s*([-+*]|\d+[.)])\s+(.+)$")
-FENCE = re.compile(r"^\s*(`{3,}|~{3,})(.*)$")
+# A backtick fence's info string cannot contain backticks, so "```a``` b" stays inline.
+FENCE = re.compile(r"^\s*(`{3,}(?=[^`]*$)|~{3,})(.*)$")
 FIELD = re.compile(r"^\*\*[^*:\n]+:\*\*\s*")
 TABLE_RULE = re.compile(r"^:?-{3,}:?$")
 INLINE_TOKEN = re.compile(
@@ -152,7 +153,8 @@ def _render_inline(value, known_refs):
             link = re.fullmatch(r"\[([^]]+)\]\(([^)]*)\)", token)
             label, raw_href = link.groups()
             href = _safe_href(raw_href)
-            rendered_label = _render_inline(label, known_refs)
+            # No record links inside a link label: nested anchors break the outer link.
+            rendered_label = _render_inline(label, ())
             if href is None:
                 pieces.append('<span class="unsafe-link">' + rendered_label +
                               ' (<code>' + html.escape(raw_href, quote=True) + '</code>)</span>')
@@ -211,23 +213,47 @@ def _starts_block(lines, index):
             _is_table(lines, index))
 
 
-def _heading_id(label, used):
+def _heading_id(label, used, reserved=()):
     record = re.match(r"([FE]\d{2,})\b", _plain(label))
     base = record.group(1).lower() if record else re.sub(
         r"[^a-z0-9]+", '-', _plain(label).lower()).strip('-')
     base = base or 'section'
     candidate, suffix = base, 2
-    while candidate in used:
+    while candidate in used or candidate in reserved:
         candidate = base + '-' + str(suffix)
         suffix += 1
     used.add(candidate)
     return candidate
 
 
+def _closes_fence(marker, line):
+    return re.match(r"^\s*" + re.escape(marker[0]) + r"{" + str(len(marker)) + r",}\s*$", line)
+
+
+def _record_refs(lines):
+    """Return record IDs with a level-3 heading outside fenced code."""
+    refs, marker = set(), None
+    for line in lines:
+        if marker:
+            if _closes_fence(marker, line):
+                marker = None
+            continue
+        fence = FENCE.match(line)
+        if fence:
+            marker = fence.group(1)
+            continue
+        record = re.match(r"###\s+([FE]\d{2,})\b", line)
+        if record:
+            refs.add(record.group(1))
+    return refs
+
+
 def markdown_to_html(markdown):
     """Render a safe, human-readable subset while retaining unknown text."""
     lines = markdown.replace('\r\n', '\n').replace('\r', '\n').split('\n')
-    known_refs = set(re.findall(r"^###\s+([FE]\d{2,})\b", markdown, re.MULTILINE))
+    known_refs = _record_refs(lines)
+    # Record anchors belong to their level-3 headings; other headings must not take them.
+    reserved_ids = {ref.lower() for ref in known_refs}
     body, used_ids, table_count = [], set(), 0
     record_open = False
     index = 0
@@ -242,9 +268,7 @@ def markdown_to_html(markdown):
             language = fence.group(2).strip()
             index += 1
             content = []
-            while index < len(lines) and not re.match(
-                    r"^\s*" + re.escape(marker[0]) + r"{" + str(len(marker)) + r",}\s*$",
-                    lines[index]):
+            while index < len(lines) and not _closes_fence(marker, lines[index]):
                 content.append(lines[index])
                 index += 1
             if index < len(lines):
@@ -264,7 +288,9 @@ def markdown_to_html(markdown):
             if level == 3 and re.match(r'[FE]\d{2,}\s+[—–-]\s+', label):
                 body.append('<section class="record">')
                 record_open = True
-            anchor = _heading_id(label, used_ids)
+            record = re.match(r"([FE]\d{2,})\b", label) if level == 3 else None
+            claims_record = record is not None and record.group(1) in known_refs
+            anchor = _heading_id(label, used_ids, () if claims_record else reserved_ids)
             body.append('<h{0} id="{1}">{2}</h{0}>'.format(
                 level, anchor, _render_inline(label, known_refs)))
             index += 1
