@@ -45,7 +45,7 @@ def strip_fences(text):
 
 def check_report(text):
     errors, warnings = [], []
-    text = text[1:] if text.startswith('﻿') else text  # UTF-8 BOM from some editors
+    text = text[1:] if text.startswith('\ufeff') else text  # UTF-8 BOM from some editors
     clean = strip_fences(text)
     parts = sections(clean)
     if tuple(name for name, _ in parts) != SECTIONS:
