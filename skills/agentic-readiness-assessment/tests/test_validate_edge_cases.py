@@ -49,6 +49,12 @@ class EmptyAndMalformedInputTests(unittest.TestCase):
         text = REPORT.replace('## Evidence', '```\n## Evidence\n```')
         self.assertEqual(errors(text), self.SECTION_ERROR)
 
+    def test_inline_triple_backticks_before_a_real_fence_keep_the_sections(self):
+        text = REPORT.replace('## What to improve',
+                              '```npm test``` exited 0.\n\n## What to improve', 1)
+        text = text.rstrip('\n') + '\n\n```text\nRan 3 tests\n```\n'
+        self.assertEqual(errors(text), [])
+
     def test_every_truncation_or_dropped_line_returns_messages_without_raising(self):
         for document in (REPORT, with_finding(REPORT_51, FINDING_51)):
             lines = document.split('\n')
@@ -94,6 +100,10 @@ class HelperTests(unittest.TestCase):
         self.assertEqual(validator.strip_fences('a\n~~~\nhidden\n~~~\nb\n'), 'a\n\nb\n')
         self.assertEqual(validator.strip_fences('a\n````md\n```\nhidden\n````\nb\n'), 'a\n\nb\n')
         self.assertIn('kept', validator.strip_fences('a\n```\nkept\n~~~\n'))
+
+    def test_strip_fences_ignores_inline_code_that_starts_a_line(self):
+        self.assertEqual(validator.strip_fences('```a``` b\nkept\n```\nhidden\n```\nnext\n'),
+                         '```a``` b\nkept\n\nnext\n')
 
 
 class ScopeAndMetadataTests(unittest.TestCase):

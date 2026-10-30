@@ -39,8 +39,9 @@ def records(body, prefix):
 
 
 def strip_fences(text):
-    # Fenced examples/logs are not report metadata or declarations.
-    return re.sub(r'^(`{3,}|~{3,})[^\n]*\n.*?^\1\s*$', '', text, flags=re.M | re.S)
+    # Fenced examples/logs are not report metadata or declarations. A backtick fence's
+    # info string cannot contain backticks, so "```a``` b" is inline code, not a fence.
+    return re.sub(r'^(`{3,}(?=[^`\n]*$)|~{3,})[^\n]*\n.*?^\1\s*$', '', text, flags=re.M | re.S)
 
 
 def check_report(text):
